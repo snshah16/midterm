@@ -6,6 +6,7 @@ metadata:
     app: flask-app
     component: greeting
 spec:
+  replicas: 1  # one ReplicaSet
   selector:
     matchLabels:
       app: flask-app  # Fixed to align with the deployment's labels
@@ -18,8 +19,8 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: 064686496891.dkr.ecr.us-east-1.amazonaws.com/my-app-image:latest    #changed image URL
+          image: 064686496891.dkr.ecr.us-east-1.amazonaws.com/my-app-image:latest
           ports:
             - containerPort: 5000
-      imagePullSecrets:  # Added Secrets
+      imagePullSecrets:  # Correctly placed at the spec level
         - name: ecr-registry-secret
