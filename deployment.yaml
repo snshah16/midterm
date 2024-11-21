@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  labels:
+    app: flask-app
+    component: greeting
+spec:
+  selector:
+    matchLabels:
+      app: flask-app  # Fixed to align with the deployment's labels
+      component: greeting
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        component: greeting
+    spec:
+      containers:
+        - name: flask-app
+          image: 064686496891.dkr.ecr.us-east-1.amazonaws.com/my-app-image:latest    #changed image URL
+          ports:
+            - containerPort: 5000
+      imagePullSecrets:  # Added Secrets
+        - name: ecr-registry-secret
